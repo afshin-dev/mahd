@@ -8,27 +8,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserController = void 0;
-const common_1 = require("@nestjs/common");
-const create_user_dto_1 = require("./dtos/create-user.dto");
-let UserController = class UserController {
-    signup(user) {
-        return user;
-    }
-};
+exports.CreateUserDTO = void 0;
+const class_validator_1 = require("class-validator");
+class CreateUserDTO {
+}
 __decorate([
-    (0, common_1.Post)("/signup"),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_user_dto_1.CreateUserDTO]),
-    __metadata("design:returntype", void 0)
-], UserController.prototype, "signup", null);
-UserController = __decorate([
-    (0, common_1.Controller)('/auth')
-], UserController);
-exports.UserController = UserController;
-//# sourceMappingURL=user.controller.js.map
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreateUserDTO.prototype, "email", void 0);
+exports.CreateUserDTO = CreateUserDTO;
+//# sourceMappingURL=user.dto.js.map

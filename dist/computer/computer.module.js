@@ -13,13 +13,14 @@ const cpu_module_1 = require("../cpu/cpu.module");
 const disk_module_1 = require("../disk/disk.module");
 const report_entity_1 = require("../report/report.entity");
 const user_entity_1 = require("../user/user.entity");
+const user_module_1 = require("../user/user.module");
 const computer_controller_1 = require("./computer.controller");
 let ComputerModule = class ComputerModule {
 };
 ComputerModule = __decorate([
     (0, common_1.Module)({
         controllers: [computer_controller_1.ComputerController],
-        imports: [disk_module_1.DiskModule, cpu_module_1.CpuModule, typeorm_1.TypeOrmModule.forRoot({
+        imports: [user_module_1.UserModule, disk_module_1.DiskModule, cpu_module_1.CpuModule, typeorm_1.TypeOrmModule.forRoot({
                 type: "sqlite",
                 database: "mahd.sqlite",
                 entities: [user_entity_1.User, report_entity_1.Report],

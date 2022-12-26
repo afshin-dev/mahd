@@ -5,7 +5,7 @@ const common_1 = require("@nestjs/common");
 const computer_module_1 = require("./computer/computer.module");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(computer_module_1.ComputerModule);
-    app.useGlobalPipes(new common_1.ValidationPipe());
+    app.useGlobalPipes(new common_1.ValidationPipe({ whitelist: true }));
     await app.listen(3000);
 }
 bootstrap();
