@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ComputerModule = void 0;
 const common_1 = require("@nestjs/common");
+const typeorm_1 = require("@nestjs/typeorm");
 const cpu_module_1 = require("../cpu/cpu.module");
 const disk_module_1 = require("../disk/disk.module");
 const computer_controller_1 = require("./computer.controller");
@@ -16,7 +17,12 @@ let ComputerModule = class ComputerModule {
 ComputerModule = __decorate([
     (0, common_1.Module)({
         controllers: [computer_controller_1.ComputerController],
-        imports: [disk_module_1.DiskModule, cpu_module_1.CpuModule]
+        imports: [disk_module_1.DiskModule, cpu_module_1.CpuModule, typeorm_1.TypeOrmModule.forRoot({
+                type: "sqlite",
+                database: "mahd.sqlite",
+                entities: [],
+                synchronize: true,
+            })]
     })
 ], ComputerModule);
 exports.ComputerModule = ComputerModule;
