@@ -10,12 +10,15 @@ exports.ReportModule = void 0;
 const common_1 = require("@nestjs/common");
 const report_controller_1 = require("./report.controller");
 const report_service_1 = require("./report.service");
+const typeorm_1 = require("@nestjs/typeorm");
+const report_entity_1 = require("./report.entity");
 let ReportModule = class ReportModule {
 };
 ReportModule = __decorate([
     (0, common_1.Module)({
         controllers: [report_controller_1.ReportController],
-        providers: [report_service_1.ReportService]
+        providers: [report_service_1.ReportService],
+        imports: [typeorm_1.TypeOrmModule.forFeature([report_entity_1.Report])]
     })
 ], ReportModule);
 exports.ReportModule = ReportModule;

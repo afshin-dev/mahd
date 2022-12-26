@@ -11,6 +11,8 @@ const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const cpu_module_1 = require("../cpu/cpu.module");
 const disk_module_1 = require("../disk/disk.module");
+const report_entity_1 = require("../report/report.entity");
+const user_entity_1 = require("../user/user.entity");
 const computer_controller_1 = require("./computer.controller");
 let ComputerModule = class ComputerModule {
 };
@@ -20,7 +22,7 @@ ComputerModule = __decorate([
         imports: [disk_module_1.DiskModule, cpu_module_1.CpuModule, typeorm_1.TypeOrmModule.forRoot({
                 type: "sqlite",
                 database: "mahd.sqlite",
-                entities: [],
+                entities: [user_entity_1.User, report_entity_1.Report],
                 synchronize: true,
             })]
     })

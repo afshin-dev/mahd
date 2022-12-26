@@ -5,21 +5,24 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserModule = void 0;
-const common_1 = require("@nestjs/common");
-const user_controller_1 = require("./user.controller");
-const typeorm_1 = require("@nestjs/typeorm");
-const user_entity_1 = require("./user.entity");
-const user_service_1 = require("./user.service");
-let UserModule = class UserModule {
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-UserModule = __decorate([
-    (0, common_1.Module)({
-        controllers: [user_controller_1.UserController],
-        providers: [user_service_1.UserService],
-        imports: [typeorm_1.TypeOrmModule.forFeature([user_entity_1.User])]
-    })
-], UserModule);
-exports.UserModule = UserModule;
-//# sourceMappingURL=user.module.js.map
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Report = void 0;
+const typeorm_1 = require("typeorm");
+let Report = class Report {
+};
+__decorate([
+    (0, typeorm_1.PrimaryGeneratedColumn)(),
+    __metadata("design:type", Number)
+], Report.prototype, "id", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", Number)
+], Report.prototype, "price", void 0);
+Report = __decorate([
+    (0, typeorm_1.Entity)()
+], Report);
+exports.Report = Report;
+//# sourceMappingURL=report.entity.js.map
