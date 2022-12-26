@@ -24,7 +24,8 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+mahd is a project to exploring [Nest](https://github.com/nestjs/nest) framework
+
 
 ## Installation
 
