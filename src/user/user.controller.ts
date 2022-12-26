@@ -1,4 +1,4 @@
-import { Controller, Get,Post, Body, Patch, Query, Param } from '@nestjs/common';
+import { Controller, Get,Post, Body, Patch, Query, Param, Delete } from '@nestjs/common';
 import { CreateUserDTO } from './dtos/create-user.dto';
 import { UserService } from './user.service';
 
@@ -24,4 +24,20 @@ export class UserController {
             return this.userService.findOne(NumberId);
     }
 
+    @Get('')
+    all(@Query('email') email: string) {
+        if (!email) {
+            return []
+        }
+        return this.userService.find(email) ;
+    }
+
+    @Delete('/:id')
+    delete(@Param('id') id : string){
+        const NumberId = parseInt(id) ;
+        if (isNaN(NumberId)) {
+            return "id not a number"
+        }
+        return this.userService.remove(NumberId) ;
+    }
 }

@@ -30,6 +30,19 @@ let UserController = class UserController {
         }
         return this.userService.findOne(NumberId);
     }
+    all(email) {
+        if (!email) {
+            return [];
+        }
+        return this.userService.find(email);
+    }
+    delete(id) {
+        const NumberId = parseInt(id);
+        if (isNaN(NumberId)) {
+            return "id not a number";
+        }
+        return this.userService.remove(NumberId);
+    }
 };
 __decorate([
     (0, common_1.Post)("/signup"),
@@ -45,6 +58,20 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], UserController.prototype, "getOne", null);
+__decorate([
+    (0, common_1.Get)(''),
+    __param(0, (0, common_1.Query)('email')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], UserController.prototype, "all", null);
+__decorate([
+    (0, common_1.Delete)('/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], UserController.prototype, "delete", null);
 UserController = __decorate([
     (0, common_1.Controller)('/auth'),
     __metadata("design:paramtypes", [user_service_1.UserService])
