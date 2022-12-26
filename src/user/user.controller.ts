@@ -38,6 +38,7 @@ export class UserController {
         const NumberId = parseInt(id) ;
         if (isNaN(NumberId)) {
             return "id not a number"
+            
         }
         return this.userService.remove(NumberId) ;
     }

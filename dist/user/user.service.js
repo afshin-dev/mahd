@@ -34,7 +34,7 @@ let UserService = class UserService {
     async update(id, attrs) {
         const user = await this.repo.findOne({ where: { id: id } });
         if (!user) {
-            throw new Error("user not found");
+            throw new common_1.NotFoundException("user not found");
         }
         for (let key in attrs) {
             user[key] = attrs[key];
@@ -44,7 +44,7 @@ let UserService = class UserService {
     async remove(id) {
         const user = await this.repo.findOne({ where: { id } });
         if (!user) {
-            throw new Error("user not found");
+            throw new common_1.NotFoundException("user not found");
         }
         return await this.repo.remove(user);
     }

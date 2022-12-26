@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import {Repository, FindOneOptions} from 'typeorm'
 import {InjectRepository} from "@nestjs/typeorm"
 import { User } from './user.entity';
@@ -25,7 +25,8 @@ export class UserService {
         const user = await this.repo.findOne({where: { id : id}});
 
         if (!user) {
-            throw new Error("user not found");
+            // throw new Error("user not found");
+            throw new NotFoundException("user not found");
         }
         
         for(let key in attrs) {
@@ -38,7 +39,9 @@ export class UserService {
     async remove(id: number){
         const user = await this.repo.findOne({where: { id}})
         if (!user) {
-            throw new Error("user not found");
+            // throw new Error("user not found");
+            throw new NotFoundException("user not found");
+
         }
         return await this.repo.remove(user) 
     }
