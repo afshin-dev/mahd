@@ -1,4 +1,5 @@
 import { CreateUserDTO } from './dtos/create-user.dto';
+import { UpdateUserDTO } from './dtos/update-user.dto';
 import { UserService } from './user.service';
 export declare class UserController {
     userService: UserService;
@@ -7,4 +8,5 @@ export declare class UserController {
     getOne(id: string): Promise<import("./user.entity").User> | "id not a number";
     all(email: string): any[] | Promise<import("./user.entity").User[]>;
     delete(id: string): Promise<import("./user.entity").User> | "id not a number";
+    update(id: string, userInfo: UpdateUserDTO): Promise<import("./user.entity").User> | "id not a number";
 }

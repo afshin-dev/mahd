@@ -1,5 +1,6 @@
 import { Controller, Get,Post, Body, Patch, Query, Param, Delete } from '@nestjs/common';
 import { CreateUserDTO } from './dtos/create-user.dto';
+import { UpdateUserDTO } from './dtos/update-user.dto';
 import { UserService } from './user.service';
 
 @Controller('/auth')
@@ -39,5 +40,13 @@ export class UserController {
             return "id not a number"
         }
         return this.userService.remove(NumberId) ;
+    }
+    @Patch("/:id")
+    update(@Param('id') id: string, @Body() userInfo: UpdateUserDTO) {
+        let NumberId = parseInt(id) ;
+        if ( isNaN(NumberId) ) {
+            return "id not a number"
+        }
+        return this.userService.update(NumberId, userInfo) 
     }
 }
