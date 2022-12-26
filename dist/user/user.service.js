@@ -25,11 +25,29 @@ let UserService = class UserService {
         const user = this.repo.create({ email, password });
         return this.repo.save(user);
     }
-    findOne() { }
-    find() { }
-    update() {
+    async findOne(id) {
+        return await this.repo.findOne({ where: { id } });
     }
-    remove() { }
+    async find(email) {
+        return await this.repo.find({ where: { email } });
+    }
+    async update(id, attrs) {
+        const user = await this.repo.findOne({ where: { id: id } });
+        if (!user) {
+            throw new Error("user not found");
+        }
+        for (let key in attrs) {
+            user[key] = attrs[key];
+        }
+        return await this.repo.save(user);
+    }
+    async remove(id) {
+        const user = await this.repo.findOne({ where: { id } });
+        if (!user) {
+            throw new Error("user not found");
+        }
+        return await this.repo.remove(user);
+    }
 };
 UserService = __decorate([
     (0, common_1.Injectable)(),

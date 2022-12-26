@@ -4,8 +4,8 @@ export declare class UserService {
     repo: Repository<User>;
     constructor(repo: Repository<User>);
     create(email: string, password: string): Promise<User>;
-    findOne(): void;
-    find(): void;
-    update(): void;
-    remove(): void;
+    findOne(id: number): Promise<User>;
+    find(email: string): Promise<User[]>;
+    update(id: number, attrs: Partial<User>): Promise<User>;
+    remove(id: number): Promise<User>;
 }
