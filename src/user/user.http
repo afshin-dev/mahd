@@ -7,3 +7,6 @@ Content-Type: application/json
     "email" : "afshinsh@rocketmail.com",
     "password" : "12345678"
 }
+
+### 
+GET http://localhost:3000/auth/jfjf HTTP/1.1

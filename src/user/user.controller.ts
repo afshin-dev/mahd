@@ -1,4 +1,4 @@
-import { Controller, Get,Post, Body } from '@nestjs/common';
+import { Controller, Get,Post, Body, Patch, Query, Param } from '@nestjs/common';
 import { CreateUserDTO } from './dtos/create-user.dto';
 import { UserService } from './user.service';
 
@@ -14,4 +14,14 @@ export class UserController {
     signup(@Body() user: CreateUserDTO) {
         return this.userService.create(user.email, user.password) ;
     }
+
+    @Get("/:id")
+    getOne(@Param('id') id: string){
+            const NumberId = parseInt(id);
+            if (isNaN(NumberId)) {
+                return "id not a number";
+            }
+            return this.userService.findOne(NumberId);
+    }
+
 }

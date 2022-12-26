@@ -4,4 +4,5 @@ export declare class UserController {
     userService: UserService;
     constructor(userService: UserService);
     signup(user: CreateUserDTO): Promise<import("./user.entity").User>;
+    getOne(id: string): Promise<import("./user.entity").User> | "id not a number";
 }

@@ -23,6 +23,13 @@ let UserController = class UserController {
     signup(user) {
         return this.userService.create(user.email, user.password);
     }
+    getOne(id) {
+        const NumberId = parseInt(id);
+        if (isNaN(NumberId)) {
+            return "id not a number";
+        }
+        return this.userService.findOne(NumberId);
+    }
 };
 __decorate([
     (0, common_1.Post)("/signup"),
@@ -31,6 +38,13 @@ __decorate([
     __metadata("design:paramtypes", [create_user_dto_1.CreateUserDTO]),
     __metadata("design:returntype", void 0)
 ], UserController.prototype, "signup", null);
+__decorate([
+    (0, common_1.Get)("/:id"),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], UserController.prototype, "getOne", null);
 UserController = __decorate([
     (0, common_1.Controller)('/auth'),
     __metadata("design:paramtypes", [user_service_1.UserService])
