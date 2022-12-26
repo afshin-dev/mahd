@@ -15,9 +15,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
 const common_1 = require("@nestjs/common");
 const create_user_dto_1 = require("./dtos/create-user.dto");
+const user_service_1 = require("./user.service");
 let UserController = class UserController {
+    constructor(userService) {
+        this.userService = userService;
+    }
     signup(user) {
-        return user;
+        return this.userService.create(user.email, user.password);
     }
 };
 __decorate([
@@ -28,7 +32,8 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], UserController.prototype, "signup", null);
 UserController = __decorate([
-    (0, common_1.Controller)('/auth')
+    (0, common_1.Controller)('/auth'),
+    __metadata("design:paramtypes", [user_service_1.UserService])
 ], UserController);
 exports.UserController = UserController;
 //# sourceMappingURL=user.controller.js.map
