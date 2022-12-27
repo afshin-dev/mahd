@@ -1,5 +1,5 @@
 import { Controller, Get,Post, Body, Patch, Query, Param, Delete, UseInterceptors } from '@nestjs/common';
-import { SerializeInterceptor } from 'src/interceptors/serialize.interceptor';
+import { UserSerializeInterceptor } from 'src/interceptors/serialize.interceptor';
 import { CreateUserDTO } from './dtos/create-user.dto';
 import { UpdateUserDTO } from './dtos/update-user.dto';
 import { UserService } from './user.service';
@@ -19,7 +19,7 @@ export class UserController {
 
 
     @Get("/:id")
-    @UseInterceptors(SerializeInterceptor)
+    @UseInterceptors(UserSerializeInterceptor)
     getOne(@Param('id') id: string){
             // console.log("1.5");
             
