@@ -16,6 +16,9 @@ export class UserService {
     }
 
     async findOne(id: number){
+        if (!id) {
+            return null 
+        }
         return await this.repo.findOne({where: {id}})
     }
     async find(email: string){

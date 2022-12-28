@@ -1,9 +1,10 @@
-import { Controller, Get,Post, Body, Patch, Query, Param, Delete, UseInterceptors } from '@nestjs/common';
+import { Controller, Get,Post, Body, Patch, Query, Param, Delete, UseInterceptors, Session } from '@nestjs/common';
 import { UserSerializeInterceptor } from 'src/interceptors/serialize.interceptor';
 import { AuthService } from './auth/auth.service';
 import { UserCredentialDTO } from './dtos/user-credential.dto';
 import { UpdateUserDTO } from './dtos/update-user.dto';
 import { UserService } from './user.service';
+import { CurrentUser } from './decoratores/current-user';
 
 @Controller('/auth')
 export class UserController {
@@ -13,15 +14,30 @@ export class UserController {
     constructor(public userService: UserService, public authService: AuthService) {
         
     }
+
+    @Get('/decorator/test')
+    decorator(@CurrentUser() user: any) {
+        return user ;
+    }
+
     @Post("/signup")
-    signup(@Body() user: UserCredentialDTO) {
+    async signup(@Body() user: UserCredentialDTO, @Session() session : any) {
         // return this.userService.create(user.email, user.password) ;
-        return this.authService.signup(user.email, user.password) ;
+        const usr = await  this.authService.signup(user.email, user.password) ;
+        session.userId = usr.id ;
+        return usr ;
     }
 
     @Post("/signin")
-    gignin(@Body() user: UserCredentialDTO) {
-        return this.authService.signin(user.email, user.password)
+    async signin(@Body() user: UserCredentialDTO, @Session() session : any) {
+        const usr = await this.authService.signin(user.email, user.password)
+        session.userId = usr.id 
+        return usr 
+    }
+
+    @Post("/signout")
+    signout(@Session() session: any){
+        session.userId = null ;
     }
 
     @Get("/:id")
@@ -53,6 +69,7 @@ export class UserController {
         }
         return this.userService.remove(NumberId) ;
     }
+
     @Patch("/:id")
     update(@Param('id') id: string, @Body() userInfo: UpdateUserDTO) {
         let NumberId = parseInt(id) ;
@@ -61,4 +78,6 @@ export class UserController {
         }
         return this.userService.update(NumberId, userInfo) 
     }
+
+  
 }

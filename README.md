@@ -24,7 +24,7 @@
 
 ## Description
 
-mahd is a project to exploring [Nest](https://github.com/nestjs/nest) framework
+mahd is a project to exploring [Nest](https://github.com/nestjs/nest) framework 
 
 
 ## Installation

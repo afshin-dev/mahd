@@ -26,6 +26,9 @@ let UserService = class UserService {
         return this.repo.save(user);
     }
     async findOne(id) {
+        if (!id) {
+            return null;
+        }
         return await this.repo.findOne({ where: { id } });
     }
     async find(email) {

@@ -14,15 +14,32 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
 const common_1 = require("@nestjs/common");
-const create_user_dto_1 = require("./dtos/create-user.dto");
+const serialize_interceptor_1 = require("../interceptors/serialize.interceptor");
+const auth_service_1 = require("./auth/auth.service");
+const user_credential_dto_1 = require("./dtos/user-credential.dto");
 const update_user_dto_1 = require("./dtos/update-user.dto");
 const user_service_1 = require("./user.service");
+const current_user_1 = require("./decoratores/current-user");
 let UserController = class UserController {
-    constructor(userService) {
+    constructor(userService, authService) {
         this.userService = userService;
+        this.authService = authService;
     }
-    signup(user) {
-        return this.userService.create(user.email, user.password);
+    decorator(user) {
+        return user;
+    }
+    async signup(user, session) {
+        const usr = await this.authService.signup(user.email, user.password);
+        session.userId = usr.id;
+        return usr;
+    }
+    async signin(user, session) {
+        const usr = await this.authService.signin(user.email, user.password);
+        session.userId = usr.id;
+        return usr;
+    }
+    signout(session) {
+        session.userId = null;
     }
     getOne(id) {
         const NumberId = parseInt(id);
@@ -53,14 +70,38 @@ let UserController = class UserController {
     }
 };
 __decorate([
+    (0, common_1.Get)('/decorator/test'),
+    __param(0, (0, current_user_1.CurrentUser)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], UserController.prototype, "decorator", null);
+__decorate([
     (0, common_1.Post)("/signup"),
     __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Session)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_user_dto_1.CreateUserDTO]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:paramtypes", [user_credential_dto_1.UserCredentialDTO, Object]),
+    __metadata("design:returntype", Promise)
 ], UserController.prototype, "signup", null);
 __decorate([
+    (0, common_1.Post)("/signin"),
+    __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Session)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [user_credential_dto_1.UserCredentialDTO, Object]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "signin", null);
+__decorate([
+    (0, common_1.Post)("/signout"),
+    __param(0, (0, common_1.Session)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], UserController.prototype, "signout", null);
+__decorate([
     (0, common_1.Get)("/:id"),
+    (0, common_1.UseInterceptors)(serialize_interceptor_1.UserSerializeInterceptor),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
@@ -90,7 +131,7 @@ __decorate([
 ], UserController.prototype, "update", null);
 UserController = __decorate([
     (0, common_1.Controller)('/auth'),
-    __metadata("design:paramtypes", [user_service_1.UserService])
+    __metadata("design:paramtypes", [user_service_1.UserService, auth_service_1.AuthService])
 ], UserController);
 exports.UserController = UserController;
 //# sourceMappingURL=user.controller.js.map
