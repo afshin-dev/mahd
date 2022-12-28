@@ -5,6 +5,7 @@ import { UserCredentialDTO } from './dtos/user-credential.dto';
 import { UpdateUserDTO } from './dtos/update-user.dto';
 import { UserService } from './user.service';
 import { CurrentUser } from './decoratores/current-user';
+import { CurrentUserInterceptor } from './interceptors/current-user.interceptor';
 
 @Controller('/auth')
 export class UserController {
@@ -15,8 +16,9 @@ export class UserController {
         
     }
 
-    @Get('/decorator/test')
-    decorator(@CurrentUser() user: any) {
+    @Get('/users/me')
+    @UseInterceptors(CurrentUserInterceptor)
+    public me(@CurrentUser() user: any) {
         return user ;
     }
 

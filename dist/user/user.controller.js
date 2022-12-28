@@ -20,12 +20,13 @@ const user_credential_dto_1 = require("./dtos/user-credential.dto");
 const update_user_dto_1 = require("./dtos/update-user.dto");
 const user_service_1 = require("./user.service");
 const current_user_1 = require("./decoratores/current-user");
+const current_user_interceptor_1 = require("./interceptors/current-user.interceptor");
 let UserController = class UserController {
     constructor(userService, authService) {
         this.userService = userService;
         this.authService = authService;
     }
-    decorator(user) {
+    me(user) {
         return user;
     }
     async signup(user, session) {
@@ -70,12 +71,13 @@ let UserController = class UserController {
     }
 };
 __decorate([
-    (0, common_1.Get)('/decorator/test'),
+    (0, common_1.Get)('/users/me'),
+    (0, common_1.UseInterceptors)(current_user_interceptor_1.CurrentUserInterceptor),
     __param(0, (0, current_user_1.CurrentUser)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
-], UserController.prototype, "decorator", null);
+], UserController.prototype, "me", null);
 __decorate([
     (0, common_1.Post)("/signup"),
     __param(0, (0, common_1.Body)()),

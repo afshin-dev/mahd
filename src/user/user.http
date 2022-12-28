@@ -43,4 +43,4 @@ Content-Type: application/json
 
 
 ### test decorator path 
-GET http://localhost:3000/auth/decorator/test
+GET http://localhost:3000/auth/users/me

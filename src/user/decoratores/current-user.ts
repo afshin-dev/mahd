@@ -4,11 +4,14 @@ import {
 } from '@nestjs/common'
 
 
+/**
+ * parameter decorator for extracting currentUser from incomming http request object
+ * and you should use it after execution of CurrentUserInterceptor interceptor
+ */
 export const CurrentUser = createParamDecorator(
     (data: any, context: ExecutionContext) => {
-        const req = context.switchToHttp().getRequest();
-        console.log(req.session.userId);
+        // console.log("dec");
         
-        return "hi" ;
+        return context.switchToHttp().getRequest().currentUser;
     }
 )
