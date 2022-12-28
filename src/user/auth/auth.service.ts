@@ -2,13 +2,12 @@ import { Injectable, BadRequestException, NotFoundException } from '@nestjs/comm
 import { UserService } from '../user.service';
 import { scrypt as _scrypt , randomBytes } from 'crypto';
 import {promisify} from 'util'
-import e from 'express';
 
 const scrypt = promisify(_scrypt) ;
 
 @Injectable()
 export class AuthService {
-    /**
+    /**  
      *
      */
     constructor(private userService: UserService) {}
