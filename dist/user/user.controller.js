@@ -21,6 +21,7 @@ const update_user_dto_1 = require("./dtos/update-user.dto");
 const user_service_1 = require("./user.service");
 const current_user_1 = require("./decoratores/current-user");
 const current_user_interceptor_1 = require("./interceptors/current-user.interceptor");
+const only_logged_user_guard_1 = require("./guards/only-logged-user.guard");
 let UserController = class UserController {
     constructor(userService, authService) {
         this.userService = userService;
@@ -73,6 +74,7 @@ let UserController = class UserController {
 __decorate([
     (0, common_1.Get)('/users/me'),
     (0, common_1.UseInterceptors)(current_user_interceptor_1.CurrentUserInterceptor),
+    (0, common_1.UseGuards)(only_logged_user_guard_1.OnlyLoggedUserGuard),
     __param(0, (0, current_user_1.CurrentUser)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
